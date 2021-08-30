@@ -1,0 +1,29 @@
+.send-sms-button {
+    border: none;
+    color: white;
+    padding: 25%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 30px rgb(122, 32, 32);
+}
+
+.send-sms-button:active {
+    background-color: rgb(122, 32, 32);
+    box-shadow: 0 15px rgb(122, 32, 32);
+    transform: translateY(15px);
+    outline: none;
+}
+
+.send-sms-button:focus {
+    outline: none;
+}
+
+.main-page {
+    padding-top: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
