@@ -7,6 +7,7 @@ import {
   requestSMSPermission,
 } from "./permissionUtils.js";
 import { getPosition, getSimInfo, sendSMS } from "./utils.js";
+import dateFormat from "dateformat";
 
 // Kaleitai amesws me thn ekkinish ths efarmoghs
 export const onDeviceReady = async () => {
@@ -86,27 +87,28 @@ export const onDeviceReady = async () => {
       });
   }
 
-  let locData;
+  let locD;
   await getPosition()
     .then((position) => {
-      locData = {
+      locD = {
         lt: position.coords.latitude,
         lg: position.coords.longitude,
         rd: position.coords.accuracy,
-        top: position.timestamp, //Time of Position
-        // lc: , Level of Confidence, sundeetai me to terrain kai ton kairo ths ka8e periptvshs (???)
+        top: dateFormat(new Date(position.timestamp), "yyyymmddHHMMss"), //Time of Position
       };
     })
-    .catch((error) => {
-      alert("code: " + error.code + "\n" + "message: " + error.message + "\n");
+    .catch(() => {
+      alert(
+        "Σφάλμα κατά την ανάκτηση της τοποθεσίας σας. Για την ομαλή λειτουργία της εφαρμογής θα πρέπει να ενεργοποιήσετε την πρόσβαση τοποθεσίας."
+      );
     });
 
-  console.log(locData);
+  console.log(locD);
 
-  let simData;
+  let simD;
   await getSimInfo()
     .then((result) => {
-      simData = {
+      simD = {
         si: result.subscriberId,
         ei: result.deviceId,
         mcc: result.mcc,
@@ -117,7 +119,7 @@ export const onDeviceReady = async () => {
       console.log(error);
     });
 
-  details = { locData, simData }; // loc? , messege length
+  details = { locD, simD };
   localStorage.setItem("sosDetails", JSON.stringify(details));
 };
 
