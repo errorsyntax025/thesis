@@ -12,14 +12,14 @@ const ExtraDetails = () => {
   const saveExtraDetails = (event) => {
     event.preventDefault();
     let details = {
-      firstName: event.target.firstName.value,
-      lastName: event.target.lastName.value,
-      allergies: event.target.allergies.value,
-      medicines: event.target.medicines.value,
-      blood: event.target.blood.value,
-      weight: event.target.weight.value,
-      contactName: event.target.contactName.value,
-      contactNumber: event.target.contactNumber.value,
+      fn: event.target.firstName.value,
+      ln: event.target.lastName.value,
+      alrg: event.target.allergies.value,
+      med: event.target.medicines.value,
+      bld: event.target.blood.value,
+      kg: event.target.weight.value,
+      cName: event.target.contactName.value,
+      cNum: event.target.contactNumber.value,
     };
     localStorage.setItem("extraDetails", JSON.stringify(details));
     setExtraDetails(details);
@@ -31,7 +31,7 @@ const ExtraDetails = () => {
         <div class="header">Βοηθητικές πληροφορίες</div>
         <p>
           Οι παρακάτω πληροφορίες δεν χρειάζονται για την λειτουργία της
-          εφαρμογής, παρόλα αυτά αποτελούν ορισμένες φορές καθοριστικές
+          εφαρμογής, παρόλα αυτά αποτελούν ορισμένες φορές καθοριστικές.
         </p>
       </div>
 
@@ -43,7 +43,8 @@ const ExtraDetails = () => {
               type="text"
               name="firstName"
               placeholder="Όνομα"
-              defaultValue={extraDetails.firstName}
+              maxLength="30"
+              defaultValue={extraDetails.fn}
             ></input>
           </div>
           <div class="field">
@@ -52,30 +53,31 @@ const ExtraDetails = () => {
               type="text"
               name="lastName"
               placeholder="Επώνυμο"
-              defaultValue={extraDetails.lastName}
+              maxLength="30"
+              defaultValue={extraDetails.ln}
             ></input>
           </div>
         </div>
 
         <h4 class="ui dividing header">Ιατρικό προφίλ</h4>
         <div class="field">
-          <label>Αλλεργίες</label>
+          <label>Γνωστές αλλεργίες</label>
           <input
             type="text"
             name="allergies"
             placeholder="Αλλεργίες και πιθανές παρενέργειες"
             maxLength="120"
-            defaultValue={extraDetails.allergies}
+            defaultValue={extraDetails.alrg}
           ></input>
         </div>
         <div class="field">
-          <label>Φάρμακα</label>
+          <label>Φαρμακακευτικές αγωγές</label>
           <input
             type="text"
             name="medicines"
             placeholder="Καθημερινές φαρμακευτικές αγωγές"
             maxLength="120"
-            defaultValue={extraDetails.medicines}
+            defaultValue={extraDetails.med}
           ></input>
         </div>
         <div class="field">
@@ -84,19 +86,19 @@ const ExtraDetails = () => {
             type="text"
             name="blood"
             placeholder="Τύπος αίματος"
-            maxLength="4"
-            defaultValue={extraDetails.blood}
+            maxLength="20"
+            defaultValue={extraDetails.bld}
           ></input>
         </div>
         <div class="field">
-          <label>Βάρος</label>
+          <label>Σωματικό βάρος</label>
           <input
             type="number"
             name="weight"
             placeholder="Βάρος σώματος σε κιλά"
             maxLength="3"
             min="0"
-            defaultValue={extraDetails.weight}
+            defaultValue={extraDetails.kg}
           ></input>
         </div>
 
@@ -107,26 +109,26 @@ const ExtraDetails = () => {
             type="text"
             name="contactName"
             placeholder="Το άτομο που επιθημείτε να ενημερωθεί"
-            maxLength="30"
-            defaultValue={extraDetails.contactName}
+            maxLength="50"
+            defaultValue={extraDetails.cName}
           ></input>
         </div>
         <div class="field">
-          <label>Νούμερο έκτακτης επαφής</label>
+          <label>Τηλέφωνο επικοινωνίας έκτακτης επαφής</label>
           <input
             type="text"
             name="contactNumber"
             placeholder="Τηλεφωνικός αριθμός"
-            maxLength="12"
-            defaultValue={extraDetails.contactNumber}
+            maxLength="14"
+            defaultValue={extraDetails.cNum}
           ></input>
         </div>
 
         <button
           class="ui red submit button"
-          onClick={() => alert("Αποθήκευση επιλογών")}
+          onClick={() => alert("Οι πληροφορίες σας αποθηκεύτηκαν επιτυχώς")}
         >
-          Submit
+          Αποθήκευση
         </button>
       </form>
       <br></br>

@@ -10,15 +10,25 @@ const ButtonFunctionCall = () => {
       color="red"
       children={<Icon name="emergency" size="massive" />}
       className="send-sms-button"
-      onClick={() => dispatchSms()}
+      onClick={() =>
+        window.confirm(
+          "Ετοιμάζεστε να αποστείλετε από την συσκευή σας ένα μήνυμα έκτακτης ανάγκης. Η κατάχρηση της υπηρεσίας μπορεί να οδηγήσει σε νομικές κυρώσεις. Θέλετε να συνεχίσετε;"
+        ) && dispatchSms()
+      }
     ></Button>
   );
 };
 
 const dispatchSms = () => {
+  const sosDetailsJsonString = localStorage.getItem("sosDetails");
+  const extraDetailsJsonString = localStorage.getItem("extraDetails");
+  const detailsLen = String(
+    sosDetailsJsonString.length + extraDetailsJsonString.length
+  );
   let details = {
-    emergencyDetails: JSON.parse(localStorage.getItem("sosDetails")),
-    extraDetails: JSON.parse(localStorage.getItem("extraDetails")),
+    devD: JSON.parse(sosDetailsJsonString),
+    extD: JSON.parse(extraDetailsJsonString),
+    len: parseInt(detailsLen) + detailsLen.length + 24,
   };
 
   sendSMS(details)
@@ -26,7 +36,11 @@ const dispatchSms = () => {
       alert("Επιτυχής αποστολή μηνύματος");
     })
     .catch((error) => {
-      alert("Αποτυχία αποστολής:" + error);
+      alert(
+        "Αποτυχία αποστολής με σφάλμα: " +
+          error +
+          ". Ελέγξτε τα δικαιώματα της εφαρμογής ή σε κάθε άλλη περίπτωση επκοινωνήστε με το support, ενημερώνοντάς τους των κωδικό του σφάλματος."
+      );
     });
 };
 
